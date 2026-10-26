@@ -7,3 +7,12 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Project progress tracking
+
+When a major product feature or meaningful project milestone is completed,
+update `docs/PROJECT_STATUS.md` in the same change. Record what was delivered,
+its current status, and the relevant verification performed; note any important
+known limitation or follow-up. Keep the log concise, dated, and factual. Do not
+add entries for routine edits or unfinished work unless the status materially
+changes.
