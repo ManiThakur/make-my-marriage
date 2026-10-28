@@ -8,11 +8,17 @@ Requirements: Node.js 20.9 or later and npm.
 
 ```bash
 npm install
+Copy-Item .env.example .env.local
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). The initial page is a
-scaffold only; application features and database access have not been added.
+Set `MONGODB_URI` in `.env.local` to your local MongoDB or Atlas connection
+string before using signup or login. The default in `.env.example` expects a
+MongoDB server at `127.0.0.1:27017`.
+
+Open [http://localhost:3000](http://localhost:3000). The homepage links to
+signup and login. New accounts are stored in MongoDB and continue to the
+initial wedding setup form before reaching the dashboard.
 
 Copy `.env.example` to `.env.local` when beginning server-side integrations.
 Never commit real credentials.

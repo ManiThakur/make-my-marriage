@@ -1,6 +1,6 @@
 # Project Status
 
-**Last updated:** 2026-10-26  
+**Last updated:** 2026-10-28
 **Active branch:** `dev`
 
 This document tracks completed major milestones and material follow-up items.
@@ -10,7 +10,7 @@ Update it when a major feature or project milestone is completed.
 
 ### Initial application scaffold
 
-**Status:** Complete  
+**Status:** Complete
 **Recorded:** 2026-10-26  
 **Commit:** `a77004d` — `Create initial application scaffold`
 
@@ -21,18 +21,28 @@ Update it when a major feature or project milestone is completed.
 
 ### Homepage
 
-**Status:** Complete  
+**Status:** Complete
 **Recorded:** 2026-10-26
 
-- Added the initial responsive landing page with the Make My Marriage identity and the headline “Your wedding, together.”
-- Added page metadata and global styling.
-- Verified the page returned HTTP 200 and included the expected title and headline.
+- Added the responsive landing page with the Make My Marriage identity and the headline “Plan the wedding. Enjoy the moments.”
+- Added page metadata, global styling, and navigation to signup and login.
+- Verified the page returned HTTP 200 and included its expected title and headline.
 - TypeScript type checking passed. No automated tests were run.
+
+### Authentication and wedding setup
+
+**Status:** Complete
+**Recorded:** 2026-10-28
+
+- Added signup, login, and logout flows with Argon2 password hashes and HTTP-only session cookies.
+- Added MongoDB user, session, wedding, and membership persistence, plus the initial wedding setup form and dashboard route.
+- Verified signup and login pages return HTTP 200, the configured MongoDB Atlas database connects, and a synthetic signup appears in the `users` collection.
+- Switched `npm run dev` to Webpack because Turbopack's CSS compilation worker exited on this Windows environment.
+
+**Follow-up:** Wedding planning features beyond initial setup and the starter dashboard remain to be implemented.
 
 ## Environment note
 
-During local verification, the installed Windows SWC native binary failed to
-load. The app was run successfully using Next.js's Wasm fallback installed
-locally without saving it to the project manifest. Recheck the native compiler
-or decide whether a persistent fallback is needed when setting up another
-development environment.
+On this Windows environment, Turbopack exits during CSS compilation, so local
+development uses the supported Webpack fallback. Recheck Turbopack after the
+local Node.js or Next.js toolchain is updated.

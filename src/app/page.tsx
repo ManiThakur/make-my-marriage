@@ -51,6 +51,7 @@ export default function Home() {
           <a href="#how-it-works">How it works</a>
           <a href="#features">What you can do</a>
         </nav>
+        <a className="header-login" href="/login">Log in</a>
         <a className="header-cta" href="#get-started">Get started <span aria-hidden="true">↗</span></a>
       </header>
 
