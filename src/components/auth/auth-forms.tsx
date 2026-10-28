@@ -56,7 +56,7 @@ export function LoginForm() {
     <div className="auth-card">
       <div className="auth-card-heading"><p className="eyebrow">WELCOME BACK</p><h2>Come on in.</h2><p>Sign in to keep planning the celebrations together.</p></div>
       {error && <Alert>{error}</Alert>}
-      <form className="auth-form" onSubmit={submit}>
+      <form className="auth-form" method="post" onSubmit={submit}>
         <label className="field" htmlFor="email"><span>Email address</span><input id="email" name="email" type="email" autoComplete="email" placeholder="e.g. meera.sharma@family.in" required maxLength={254} /></label>
         <PasswordField autoComplete="current-password" />
         <label className="remember-row"><input name="rememberMe" type="checkbox" defaultChecked /><span>Remember this device for 30 days</span></label>
@@ -104,7 +104,7 @@ export function SignupForm() {
     <div className="auth-card">
       <div className="auth-card-heading"><p className="eyebrow">A LOVELY PLACE TO BEGIN</p><h2>Create your account.</h2><p>Start your wedding space, then bring your favourite people along.</p></div>
       {error && <Alert>{error}</Alert>}
-      <form className="auth-form" onSubmit={submit}>
+      <form className="auth-form" method="post" onSubmit={submit}>
         <label className="field" htmlFor="name"><span>Your name</span><input id="name" name="name" type="text" autoComplete="name" placeholder="How should we call you?" required minLength={2} maxLength={80} /></label>
         <label className="field" htmlFor="email"><span>Email address</span><input id="email" name="email" type="email" autoComplete="email" placeholder="e.g. meera.sharma@family.in" required maxLength={254} /></label>
         <PasswordField autoComplete="new-password" />
