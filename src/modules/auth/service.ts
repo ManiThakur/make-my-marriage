@@ -29,8 +29,14 @@ export async function createSession(userId: string, days = DEFAULT_SESSION_DAYS)
 export async function clearSession() {
   const cookieStore = await cookies();
   const token = cookieStore.get(SESSION_COOKIE)?.value;
-  if (token) await Session.deleteOne({ tokenHash: hashToken(token) });
-  cookieStore.delete(SESSION_COOKIE);
+  try {
+    if (token) {
+      await connectToDatabase();
+      await Session.deleteOne({ tokenHash: hashToken(token) });
+    }
+  } finally {
+    cookieStore.delete(SESSION_COOKIE);
+  }
 }
 
 export async function getAuthContext() {

@@ -7,5 +7,5 @@ export default async function WeddingSetupPage() {
   const context = await getAuthContext();
   if (!context) redirect("/signup");
   if (context.wedding) redirect("/dashboard");
-  return <AuthFrame><WeddingSetupForm /></AuthFrame>;
+  return <AuthFrame showSignOut><WeddingSetupForm /></AuthFrame>;
 }

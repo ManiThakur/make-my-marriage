@@ -1,12 +1,16 @@
 import Link from "next/link";
 import { AuthShowcase } from "@/components/auth/auth-showcase";
+import { SignOutButton } from "@/components/auth/sign-out-button";
 
-export function AuthFrame({ children }: { children: React.ReactNode }) {
+export function AuthFrame({ children, showSignOut = false }: { children: React.ReactNode; showSignOut?: boolean }) {
   return (
     <main className="auth-page">
       <header className="auth-header">
         <Link className="auth-brand" href="/">Make My Marriage</Link>
-        <Link className="auth-return" href="/">← <span>Return to homepage</span></Link>
+        <div className="auth-header-actions">
+          {showSignOut && <SignOutButton />}
+          <Link className="auth-return" href="/">← <span>Return to homepage</span></Link>
+        </div>
       </header>
       <div className="auth-grid">
         <AuthShowcase />
