@@ -1,6 +1,6 @@
 # Project Status
 
-**Last updated:** 2026-10-28
+**Last updated:** 2026-10-29
 **Active branch:** `dev`
 
 This document tracks completed major milestones and material follow-up items.
@@ -39,7 +39,16 @@ Update it when a major feature or project milestone is completed.
 - Verified signup and login pages return HTTP 200, the configured MongoDB Atlas database connects, and a synthetic signup appears in the `users` collection.
 - Switched `npm run dev` to Webpack because Turbopack's CSS compilation worker exited on this Windows environment.
 
-**Follow-up:** Wedding planning features beyond initial setup and the starter dashboard remain to be implemented.
+### Wedding onboarding experience
+
+**Status:** Complete
+**Recorded:** 2026-10-29
+
+- Implemented the approved Stitch wedding setup and welcome screens, including wedding details, live identity preview, and the first post-setup workspace overview with a readiness roadmap.
+- Added cleanup for a partially created wedding if its initial membership cannot be created.
+- The user reviewed and approved the feature. TypeScript type checking passed; `npm test` reported that no test files are configured.
+
+**Follow-up:** The current development network's public IP is not on the Atlas project IP Access List, so database access from this network requires an Atlas allowlist entry. Wedding planning features beyond initial setup and the starter dashboard remain to be implemented.
 
 ## Environment note
 

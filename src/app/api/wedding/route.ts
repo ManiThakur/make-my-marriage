@@ -24,6 +24,7 @@ function makeBaseSlug(bride: string, groom: string, date: string) {
 
 export async function POST(request: Request) {
   let createdWeddingId: string | undefined;
+  let createdMembership = false;
   try {
     const context = await getAuthContext();
     if (!context) return apiError(401, "UNAUTHORIZED", "Please sign in to set up your wedding.");
@@ -59,6 +60,7 @@ export async function POST(request: Request) {
     });
     createdWeddingId = wedding.id;
     await WeddingMembership.create({ userId: context.user._id, weddingId: wedding._id, role: "ADMIN", joinedAt: new Date() });
+    createdMembership = true;
     return Response.json({ data: {
       id: wedding.id,
       brideName: wedding.brideName,
@@ -68,6 +70,7 @@ export async function POST(request: Request) {
       website: { slug },
     } }, { status: 201 });
   } catch (error) {
+    if (createdMembership && createdWeddingId) await WeddingMembership.deleteOne({ weddingId: createdWeddingId }).catch(() => undefined);
     if (createdWeddingId) await Wedding.deleteOne({ _id: createdWeddingId }).catch(() => undefined);
     if (typeof error === "object" && error !== null && "code" in error && error.code === 11000) {
       return apiError(409, "ALREADY_HAS_WEDDING", "Your account is already connected to a wedding.");
