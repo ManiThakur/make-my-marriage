@@ -520,7 +520,7 @@ Wedding {
     title: String?,
     description: String?,
 
-    weddingDate: String,
+    weddingDate: String?, // nullable after setup until the date is confirmed
 
     timeZone: String,
 
@@ -528,6 +528,7 @@ Wedding {
 
     location: {
         formattedAddress: String?,
+        venue: String?,
         city: String?,
         state: String?,
         country: String?,

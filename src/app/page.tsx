@@ -1,3 +1,5 @@
+import { getAuthContext } from "@/modules/auth/service";
+
 const features = [
   {
     number: "01",
@@ -39,7 +41,12 @@ function BrandMark() {
   return <span className="brand-mark" aria-hidden="true">m<span>♥</span>m</span>;
 }
 
-export default function Home() {
+export default async function Home() {
+  const authContext = await getAuthContext();
+  const isSignedIn = Boolean(authContext);
+  const workspaceHref = authContext?.wedding ? "/dashboard" : "/wedding/setup";
+  const workspaceLabel = authContext?.wedding ? "Dashboard" : "Continue setup";
+
   return (
     <main>
       <header className="site-header">
@@ -51,8 +58,14 @@ export default function Home() {
           <a href="#how-it-works">How it works</a>
           <a href="#features">What you can do</a>
         </nav>
-        <a className="header-login" href="/login">Log in</a>
-        <a className="header-cta" href="#get-started">Get started <span aria-hidden="true">↗</span></a>
+        {isSignedIn ? (
+          <a className="header-cta" href={workspaceHref}>{workspaceLabel} <span aria-hidden="true">↗</span></a>
+        ) : (
+          <>
+            <a className="header-login" href="/login">Log in</a>
+            <a className="header-cta" href="#get-started">Get started <span aria-hidden="true">↗</span></a>
+          </>
+        )}
       </header>
 
       <section className="hero" id="top">
@@ -63,7 +76,7 @@ export default function Home() {
             A shared place for you and your family to bring every wedding detail together — so you can spend less time coordinating and more time celebrating.
           </p>
           <div className="hero-actions" id="get-started">
-            <a className="button button-primary" href="/signup">Start planning <span aria-hidden="true">→</span></a>
+            <a className="button button-primary" href={isSignedIn ? workspaceHref : "/signup"}>{isSignedIn ? authContext?.wedding ? "Open your dashboard" : "Continue setup" : "Start planning"} <span aria-hidden="true">→</span></a>
             <a className="text-link" href="#how-it-works">Take a look around <span aria-hidden="true">↓</span></a>
           </div>
           <div className="hero-note"><span className="avatar-stack"><i>A</i><i>M</i><i>+</i></span><span>For the two of you, and everyone who makes it special.</span></div>
@@ -129,7 +142,7 @@ export default function Home() {
 
       <section className="how-section" id="how-it-works"><div className="how-heading"><p className="eyebrow">A SIMPLE PLACE TO START</p><h2>Start with the two of you.<br /><em>Bring your people along.</em></h2></div><div className="steps"><article><span className="step-number">01</span><span className="step-icon">♡</span><h3>Create your wedding space</h3><p>Add your names, date and location to make it yours.</p></article><article><span className="step-number">02</span><span className="step-icon">✿</span><h3>Invite your inner circle</h3><p>Bring family and trusted friends into the planning.</p></article><article><span className="step-number">03</span><span className="step-icon">✳</span><h3>Make the celebrations yours</h3><p>Plan events, share tasks and keep everyone in the loop.</p></article></div></section>
 
-      <section className="closing-cta"><span className="cta-flower flower-left">✿</span><p className="eyebrow">YOUR PEOPLE. YOUR CELEBRATION.</p><h2>Let the planning feel<br /><em>a little more like you.</em></h2><p>Bring everyone who matters into one shared wedding space.</p><a className="button button-light" href="/signup">Start planning together <span>→</span></a><span className="cta-flower flower-right">✳</span></section>
+      <section className="closing-cta"><span className="cta-flower flower-left">✿</span><p className="eyebrow">YOUR PEOPLE. YOUR CELEBRATION.</p><h2>Let the planning feel<br /><em>a little more like you.</em></h2><p>Bring everyone who matters into one shared wedding space.</p><a className="button button-light" href={isSignedIn ? workspaceHref : "/signup"}>{isSignedIn ? authContext?.wedding ? "Open your dashboard" : "Continue setup" : "Start planning together"} <span>→</span></a><span className="cta-flower flower-right">✳</span></section>
 
       <footer className="site-footer"><a className="brand" href="#top"><BrandMark /><span>make my marriage</span></a><span>Made with love, for the ones you love.</span><div><a href="#features">What you can do</a><a href="#how-it-works">How it works</a></div><small>© 2027 Make My Marriage</small></footer>
     </main>

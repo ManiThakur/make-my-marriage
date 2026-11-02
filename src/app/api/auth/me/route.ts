@@ -12,7 +12,7 @@ export async function GET() {
         id: String(context.wedding._id),
         brideName: context.wedding.brideName,
         groomName: context.wedding.groomName,
-        weddingDate: context.wedding.weddingDate,
+        weddingDate: context.wedding.weddingDate ?? null,
         location: context.wedding.location,
       } : null,
     } });

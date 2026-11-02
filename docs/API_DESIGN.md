@@ -780,25 +780,27 @@ Do not return secret token hashes.
 
 Authentication required.
 
-Admin and Manager allowed.
+Wedding ADMIN membership required.
 
 ### Request
 
-Any subset:
+The current editor sends the complete set of editable fields plus the `updatedAt` value it loaded. The date may be `null` when it has not been set yet.
 
 ```json
 {
   "brideName": "Princi",
   "groomName": "Akshay",
-  "description": "Updated welcome message",
   "weddingDate": "2027-02-14",
-  "location": {
-    "...": "..."
-  }
+  "city": "Dehradun",
+  "state": "Uttarakhand",
+  "country": "India",
+  "venue": "Rambagh Palace",
+  "title": "The Winter Celebration",
+  "updatedAt": "2026-11-02T11:55:22.608Z"
 }
 ```
 
-Existing wedding slug should remain unchanged when names/date change.
+The endpoint is scoped to the authenticated wedding, validates changes, and rejects stale `updatedAt` values. Existing wedding slugs remain unchanged when names or dates change. Updating the primary date does not move dates on existing events.
 
 ---
 

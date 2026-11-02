@@ -64,7 +64,7 @@ export function WeddingSetupForm() {
         </div>
         <div className="field-pair">
           <label className="field" htmlFor="country"><span>Country <small>(Optional)</small></span><input id="country" name="country" value={country} onChange={(event) => setCountry(event.target.value)} placeholder="e.g. India" maxLength={120} autoComplete="country-name" /></label>
-          <label className="field" htmlFor="title"><span>Wedding title or celebration subtitle <small>(Optional)</small></span><input id="title" name="title" value={title} onChange={(event) => setTitle(event.target.value)} placeholder="e.g. The Winter Celebration" maxLength={120} /></label>
+          <label className="field" htmlFor="title"><span>Wedding title or celebration subtitle <small>(Optional)</small></span><input id="title" name="title" value={title} onChange={(event) => setTitle(event.target.value)} placeholder="e.g. The Winter Celebration" maxLength={180} /></label>
         </div>
         <p className="field-hint title-hint">Used on your family workspace header and private portal invitations.</p>
 

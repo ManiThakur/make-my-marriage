@@ -3,12 +3,13 @@ import { Schema, model, models } from "mongoose";
 const weddingSchema = new Schema({
   brideName: { type: String, required: true, trim: true, maxlength: 80 },
   groomName: { type: String, required: true, trim: true, maxlength: 80 },
-  title: { type: String, trim: true, maxlength: 120 },
+  title: { type: String, trim: true, maxlength: 180 },
   description: { type: String, trim: true, maxlength: 1000 },
-  weddingDate: { type: String, required: true, match: /^\d{4}-\d{2}-\d{2}$/ },
+  weddingDate: { type: String, default: null, match: /^\d{4}-\d{2}-\d{2}$/ },
   timeZone: { type: String, required: true, default: "Asia/Kolkata" },
   location: {
     formattedAddress: { type: String, trim: true },
+    venue: { type: String, trim: true, maxlength: 160 },
     city: { type: String, required: true, trim: true, maxlength: 120 },
     state: { type: String, trim: true, maxlength: 120 },
     country: { type: String, trim: true, maxlength: 120 },
