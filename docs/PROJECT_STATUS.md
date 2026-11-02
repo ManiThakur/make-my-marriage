@@ -74,6 +74,20 @@ Update it when a major feature or project milestone is completed.
 
 **Follow-up:** Database-backed verification still depends on MongoDB connectivity from the current development network.
 
+### Family & team invitations
+
+**Status:** Implemented; runtime review pending
+**Recorded:** 2026-11-02
+
+- Added the approved Stitch-based member directory, invitation form, shareable-link confirmation, and public invitation acceptance page with responsive layouts.
+- Added wedding-scoped invitation persistence, hashed single-use tokens, seven-day expiry, admin-only creation and revocation, and email-matched signup/login continuation.
+- Added member roster and pending invitation views, role selection, and a dashboard entry point.
+- Added mock and Resend email providers. Local development defaults to an in-memory mock that does not deliver externally; the generated link remains available as a manual fallback.
+- Added provider tests for mock capture, message rendering, Resend request formatting, missing credentials, and safe failure handling.
+- Verification: all 5 targeted Vitest tests passed; `npm run typecheck` passed. Resend was not contacted.
+
+**Follow-up:** Real email delivery requires `EMAIL_PROVIDER=resend`, `RESEND_API_KEY`, and a verified `RESEND_FROM_EMAIL` in local/production environment configuration. Runtime review of database-backed invitation creation still requires MongoDB connectivity. Acceptance uses a guarded invitation claim with a compensating status reset if membership creation fails, so the flow works with standalone MongoDB deployments that do not support transactions.
+
 ## Environment note
 
 On this Windows environment, Turbopack exits during CSS compilation, so local

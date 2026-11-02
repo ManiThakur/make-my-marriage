@@ -26,7 +26,7 @@ function PasswordField({ id = "password", label = "Password", autoComplete }: { 
   );
 }
 
-export function LoginForm() {
+export function LoginForm({ returnTo }: { returnTo?: string }) {
   const router = useRouter();
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
@@ -43,7 +43,7 @@ export function LoginForm() {
       });
       const result = await response.json() as AuthResponse;
       if (!response.ok) throw new Error(result.error?.message || "We couldn’t sign you in. Please try again.");
-      router.replace(result.data?.hasWedding ? "/dashboard" : "/wedding/setup");
+      router.replace(returnTo || (result.data?.hasWedding ? "/dashboard" : "/wedding/setup"));
       router.refresh();
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "We couldn’t sign you in. Please try again.");
@@ -62,13 +62,13 @@ export function LoginForm() {
         <label className="remember-row"><input name="rememberMe" type="checkbox" defaultChecked /><span>Remember this device for 30 days</span></label>
         <button className="auth-submit" disabled={pending}>{pending ? "Signing you in…" : "Sign in"}<span aria-hidden="true">→</span></button>
       </form>
-      <p className="auth-switch">New to the workspace? <Link href="/signup">Create an account</Link></p>
+      <p className="auth-switch">New to the workspace? <Link href={returnTo ? `/signup?returnTo=${encodeURIComponent(returnTo)}` : "/signup"}>Create an account</Link></p>
       <div className="guest-hint"><b><span aria-hidden="true">♡</span> Invited as a guest?</b><p>You don’t need an account. Open the personal invitation link shared with you to see the details and RSVP.</p></div>
     </div>
   );
 }
 
-export function SignupForm() {
+export function SignupForm({ returnTo }: { returnTo?: string }) {
   const router = useRouter();
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
@@ -91,7 +91,7 @@ export function SignupForm() {
       });
       const result = await response.json() as AuthResponse;
       if (!response.ok) throw new Error(result.error?.message || "We couldn’t create your account. Please try again.");
-      router.replace("/wedding/setup");
+      router.replace(returnTo || "/wedding/setup");
       router.refresh();
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "We couldn’t create your account. Please try again.");
@@ -112,7 +112,7 @@ export function SignupForm() {
         <button className="auth-submit" disabled={pending}>{pending ? "Creating your account…" : "Create account"}<span aria-hidden="true">→</span></button>
         <p className="terms-note">By continuing, you agree to use this space with care for everyone’s wedding details.</p>
       </form>
-      <p className="auth-switch">Already have an account? <Link href="/login">Sign in</Link></p>
+      <p className="auth-switch">Already have an account? <Link href={returnTo ? `/login?returnTo=${encodeURIComponent(returnTo)}` : "/login"}>Sign in</Link></p>
     </div>
   );
 }

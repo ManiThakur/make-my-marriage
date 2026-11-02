@@ -907,7 +907,9 @@ Create secure invitation token
 ↓
 Create invitation record
 ↓
-Send email immediately through Resend
+Send the invitation email through the configured provider
+↓
+Return the single-use invitation URL once as a manual fallback
 ```
 
 ### Response
@@ -919,10 +921,21 @@ Send email immediately through Resend
     "email": "rahul@example.com",
     "role": "MANAGER",
     "status": "PENDING",
-    "expiresAt": "..."
+    "expiresAt": "...",
+    "invitationUrl": "https://app.example.com/member-invitations/{token}",
+    "emailDelivery": { "provider": "mock", "status": "MOCKED" }
   }
 }
 ```
+
+The raw token is returned only when the invitation is created; MongoDB stores
+only its SHA-256 hash. Local development defaults to the mock email provider,
+which captures a message in process memory without external delivery. Set
+`EMAIL_PROVIDER=resend`, `RESEND_API_KEY`, and `RESEND_FROM_EMAIL` for live
+delivery; the Resend sender must be verified in the Resend dashboard. Email
+delivery failures leave the invitation active and return its URL for manual
+sharing. Configure `NEXT_PUBLIC_APP_URL` to the public application origin
+(development defaults to `http://localhost:3000`).
 
 ---
 

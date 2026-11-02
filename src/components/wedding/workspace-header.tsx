@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 
 type WorkspaceHeaderProps = {
-  active: "dashboard" | "events" | "wedding";
+  active: "dashboard" | "events" | "wedding" | "members";
   coupleName: string;
   city: string;
   title: string;
@@ -21,6 +21,7 @@ export function WorkspaceHeader({ active, coupleName, city, title, userName }: W
         <Link href="/dashboard" className={active === "dashboard" ? "active" : ""} aria-current={active === "dashboard" ? "page" : undefined}>Dashboard</Link>
         <Link href="/events" className={active === "events" ? "active" : ""} aria-current={active === "events" ? "page" : undefined}>Events</Link>
         <Link href="/wedding/edit" className={active === "wedding" ? "active" : ""} aria-current={active === "wedding" ? "page" : undefined}>Details</Link>
+        <Link href="/members" className={active === "members" ? "active" : ""} aria-current={active === "members" ? "page" : undefined}>Kin &amp; Team</Link>
       </nav>
       <div className="workspace-account">
         <span className="workspace-avatar" aria-hidden="true">{userName.slice(0, 1).toUpperCase()}</span>

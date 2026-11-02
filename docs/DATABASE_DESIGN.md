@@ -296,6 +296,8 @@ User {
     email: String,
     emailNormalized: String,
 
+    relationshipNote: String?,
+
     passwordHash: String,
 
     createdAt: Date,

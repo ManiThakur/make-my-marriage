@@ -22,8 +22,27 @@ const membershipSchema = new Schema({
 }, { timestamps: true, collection: "wedding_memberships" });
 membershipSchema.index({ weddingId: 1, userId: 1 }, { unique: true });
 
+const memberInvitationSchema = new Schema({
+  weddingId: { type: Schema.Types.ObjectId, ref: "Wedding", required: true },
+  email: { type: String, required: true, trim: true },
+  emailNormalized: { type: String, required: true },
+  relationshipNote: { type: String, trim: true, maxlength: 80, default: "" },
+  role: { type: String, enum: ["ADMIN", "MANAGER"], required: true },
+  tokenHash: { type: String, required: true, unique: true },
+  status: { type: String, enum: ["PENDING", "ACCEPTED", "REVOKED"], required: true, default: "PENDING" },
+  invitedByUserId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  acceptedByUserId: { type: Schema.Types.ObjectId, ref: "User", default: null },
+  expiresAt: { type: Date, required: true },
+  acceptedAt: { type: Date, default: null },
+}, { timestamps: true, collection: "wedding_member_invitations" });
+memberInvitationSchema.index({ weddingId:  1, status: 1 });
+memberInvitationSchema.index({ emailNormalized: 1 });
+memberInvitationSchema.index({ expiresAt: 1 });
+memberInvitationSchema.index({ weddingId: 1, emailNormalized: 1 }, { unique: true, partialFilterExpression: { status: "PENDING" } });
+
 export const User = models.User ?? model("User", userSchema);
 export const Session = models.Session ?? model("Session", sessionSchema);
 export const WeddingMembership = models.WeddingMembership ?? model("WeddingMembership", membershipSchema);
+export const WeddingMemberInvitation = models.WeddingMemberInvitation ?? model("WeddingMemberInvitation", memberInvitationSchema);
 
 export type UserRecord = InferSchemaType<typeof userSchema>;
